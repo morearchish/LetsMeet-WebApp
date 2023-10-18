@@ -1,0 +1,17 @@
+GET http://localhost:3000/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSmltIiwiaWF0IjoxNjk3NTY1MDgyfQ.Wwst6jmqW2YbUE39o9bsdUa3XGPpO2ajb3UzZjpMvxw
+
+###
+POST http://localhost:3000/login 
+Content-Type: application/json
+
+{
+    "username": "Jim",
+    "password":"archish"
+}
+
+###
+GET http://localhost:3000/check
+
+###
+
