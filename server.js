@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken');
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 const posts = [
   {
@@ -61,9 +61,9 @@ function authenticateToken(req, res, next) {
 }
 
 
-app.get("/check", (req, res) => { 
-  res.json(posts);
-});
+// app.get("/check", (req, res) => { 
+//   res.json(posts);
+// });
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
