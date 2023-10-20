@@ -1,42 +1,98 @@
-
+import { useState } from 'react';
 import './App.css';
-// import img from '../components/img1'
+import axios from 'axios';
 
 function App() {
-  return (
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const [check, setcheck] = useState('');
 
+  const handleUsernameChange = (event) => {
+    setcheck("");
+    setUserName(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setcheck("");
+    setPassword(event.target.value);
+  };
+
+  const finalstep = () => {
+    axios.post('http://localhost:4000/login', {
+      username: username,
+      password: password
+    })
+      .then(function (response) {
+        if (response.data == null) {
+          setUserName("");
+          setPassword("")
+          setcheck("xyz");
+        }
+        else {
+            const access_token = response.data.access_token;
+            console.log(access_token);
+
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+  };
+
+  return (
     <body>
       <div className='background'>
         <div className='inner-1'>
           <p style={{ fontSize: "2pc", fontWeight: "bold", marginLeft: "140px" }}>LOGIN HERE</p>
-
-
           <div style={{ gap: "50px", display: "grid" }}>
             <div>
               <form id="login-form">
-                <p style={{ fontWeight: "bold", fontSize: "20px", marginTop: "0px", marginBottom: "0px" }}>User Name</p>
-                <input style={{ height: "35px", width: "480px" }} type="text" name="username" id="username" />
+                <p style={{ fontWeight: "bold", fontSize: "20px", marginTop: "0px", marginBottom: "5px" }}>User Name</p>
+                <input
+                  style={{ height: "35px", width: "480px" }}
+                  type="text"
+                  name="username"
+                  id="username"
+                  value={username}
+                  onChange={handleUsernameChange} // Add onChange event
+                />
               </form>
             </div>
             <div>
               <form id="login-form">
-                <p style={{ fontWeight: "bold", fontSize: "20px", marginTop: "0px", marginBottom: "0px" }}>Password</p>
-                <input style={{ width: "480px", height: "35px" }} type="password" name="password" id="password" />
+                <p style={{ fontWeight: "bold", fontSize: "20px", marginTop: "0px", marginBottom: "5px" }}>Password</p>
+                <input
+                  style={{ width: "480px", height: "35px" }}
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={password}
+                  onChange={handlePasswordChange} // Add onChange event
+                />
               </form>
             </div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <button style={{ height: "50px", width: "300px" }} id="login-button">LOGIN IN</button>
+
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+
+              {
+                check && <p style={{ color: "red" }}>Log In Credentials are incorrect</p>
+              }
+
+
+              <button
+                style={{ borderRadius: "7px", height: "50px", width: "300px", backgroundColor: "blue", color: "white" }}
+                id="login-button"
+                onClick={finalstep}
+              >
+                LOGIN IN
+              </button>
             </div>
-
           </div>
-
         </div>
       </div>
-
     </body>
-
-
-
   );
 }
 
