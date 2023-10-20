@@ -3,7 +3,9 @@ import './Login.css';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
-function Login() {
+function Login() 
+{
+
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [check, setcheck] = useState('');
@@ -32,7 +34,7 @@ function Login() {
         } else {
           const access_token = response.data.access_token;
           console.log(access_token);
-          navigate('/chat'); 
+          navigate('/chat', { state: { access_token } }); 
         }
       })
       .catch(function (error) {

@@ -1,8 +1,17 @@
 import React from 'react'
 
+import {useLocation} from 'react-router-dom';
+
+
 function Chat() {
-  return (
+  
+   const location = useLocation();
+   const access_token = location.state?.access_token;
+
+   return (
     <div>
+        
+        
       
     </div>
   )
