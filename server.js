@@ -23,20 +23,21 @@ const posts = [
     access_token: ""
   },
   {
-    username: "harmanpreet",
+    username: "Harmanpreet",
     password: "0239",
     access_token: ""
   },
   {
-    username: "riya",
+    username: "Riya",
     password: "0091",
     access_token: ""
   }
 ];
 
-app.get('/posts/', authenticateToken, (req, res) => {
-  console.log(req.user.name);
-  res.json(posts.filter(post => post.username === req.user.name));
+app.get('/posts', authenticateToken, (req, res) => {
+  // console.log(req.user.name);
+  // res.json(posts.filter(post => post.username === req.user.name));
+  res.json(req.user);
 });
 
 
@@ -99,3 +100,5 @@ app.post("/login", (req, res) => {
 app.listen(4000, () => {
   console.log('Server is running on port 4000');
 });
+
+module.exports = posts;
