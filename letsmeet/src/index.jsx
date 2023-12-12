@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Elitefit from './elitefit';
 import reportWebVitals from './reportWebVitals';
 // import './Sanju'
 // import Sanju from './Sanju';

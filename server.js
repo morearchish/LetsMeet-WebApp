@@ -4,6 +4,13 @@ const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+const multer = require('multer');
+const sharp = require('sharp');
+const pdf2pic = require('pdf2pic');
+const fs = require('fs');
+const pdf = require('pdf-parse');
+
+
 
 app.use(bodyParser.json(), cors({
   origin: 'http://localhost:3000',
@@ -69,7 +76,7 @@ function authenticateToken(req, res, next) {
 app.post("/login", (req, res) => {
   let check = false;
   let userIndex = -1;
-  const { username, password} = req.body;
+  const { username, password } = req.body;
 
   for (let i = 0; i < posts.length; i++) {
     if (posts[i].username === username && posts[i].password === password) {
@@ -95,6 +102,31 @@ app.post("/login", (req, res) => {
   }
 });
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+
+app.post('/data', upload.single('file'), async (req, res) => {
+  
+  try {
+    console.log(req.file.mimetype)
+
+    if(req.file.mimetype === 'application/pdf'){
+      pdf(req.file.buffer).then(function(data) {
+ 
+        res.json(data.text);
+      })
+
+    }
+    else{
+      
+    }
+
+  } catch (error) {
+    console.error('Error during file conversion:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
 app.listen(4000, () => {
